@@ -1,29 +1,27 @@
-const path = require('path')
+const path = require('path');
 // const webpack = require('webpack')
 
-const mode = 'development'
+const mode = 'development';
 
-const resolver = root => path.resolve(__dirname, '..', '..', root)
+const resolver = root => path.resolve(__dirname, '..', '..', root);
 
 const resolve = {
   extensions: ['.js', '.jsx'],
-  alias: {
-    '@': resolver('src'),
-  },
-}
+  modules: [resolver('src'), 'node_modules']
+};
 
-const entry = './src/index.js'
+const entry = './src/index.js';
 
 const output = {
   path: resolver('dist'),
-  filename: 'index.js',
-}
+  filename: 'index.js'
+};
 
 const babel_rule = {
   test: /\.(js)$/,
   use: 'babel-loader',
-  exclude: /node_modules/,
-}
+  exclude: /node_modules/
+};
 
 const file_rule = {
   test: /\.(png|jpg|gif|csv)$/,
@@ -32,13 +30,13 @@ const file_rule = {
       loader: 'file-loader',
       options: {
         name: '[path][name].[ext]',
-        context: resolver('src'),
-      },
-    },
-  ],
-}
+        context: resolver('src')
+      }
+    }
+  ]
+};
 
-const rules = [babel_rule, file_rule]
+const rules = [babel_rule, file_rule];
 
 module.exports = {
   mode,
@@ -46,6 +44,6 @@ module.exports = {
   output,
   resolve,
   module: {
-    rules,
-  },
-}
+    rules
+  }
+};
